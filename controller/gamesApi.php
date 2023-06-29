@@ -25,7 +25,16 @@ class Games
     public $team = null;
     public $h2h = null;
 
-
+    /**
+     * Games constructor.
+     * @param string $id
+     * @param string $date
+     * @param string $live
+     * @param int $league
+     * @param string $season
+     * @param string $team
+     * @param string $h2h
+     */
     public function __construct(
         $id = null,
         $date = null,
