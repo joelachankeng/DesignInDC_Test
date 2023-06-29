@@ -1,3 +1,25 @@
-joelishere {
-  color: gray;
+// Variable overrides first
+$enable-shadows: true;
+$prefix: "mo-";
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.loading-row {
+  cursor: progress;
+}
+#modal-error {
+  &.show {
+    display: block;
+  }
 }

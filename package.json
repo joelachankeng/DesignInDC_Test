@@ -4,6 +4,7 @@
   "description": "A test for Design in DC",
   "main": "gulpfile.js",
   "dependencies": {
+    "bootstrap": "^5.3.0",
     "postcss": "^8.2.9",
     "tailwindcss": "^2.1.1"
   },
