@@ -160,7 +160,7 @@ class Games
                 curl_close($curl);
             }
 
-            $this->data  = json_decode($response);
+            $this->data = json_decode($response);
             return $this->data;
         }
         return false;
@@ -193,5 +193,25 @@ class Games
             ],
             'response' => array_slice($this->data->response, $offset, $this->pageSize)
         ];
+    }
+
+    /**
+     * sanitize a variable
+     * @param array|int|string $data
+     * @return array|int|string
+     * @throws \Exception
+     */
+    function sanitize($data)
+    {
+        foreach ($data as &$value) {
+            if (is_scalar($value)) {
+                $value = filter_var($value, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+                continue;
+            }
+
+            $value = $this->sanitize($value);
+        }
+
+        return $data;
     }
 }
