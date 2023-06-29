@@ -17,33 +17,63 @@ class Games
 
     public $data = [];
 
-    public function __construct()
-    {
-        $this->data = $this->getGamesBySeason(date("Y", strtotime("-1 year")));
+    public $id = null;
+    public $date = null;
+    public $live = null;
+    public $league = null;
+    public $season = null;
+    public $team = null;
+    public $h2h = null;
+
+
+    public function __construct(
+        $id = null,
+        $date = null,
+        $live = null,
+        $league = null,
+        $season = null,
+        $team = null,
+        $h2h = null
+    ) {
+        $this->id = $id;
+        $this->date = $date;
+        $this->live = $live;
+        $this->league = $league;
+        $this->season = $season;
+        $this->team = $team;
+        $this->h2h = $h2h;
+
+
+        // check if any argument is not null
+        if (
+            $this->id !== null ||
+            $this->date !== null ||
+            $this->live !== null ||
+            $this->league !== null ||
+            $this->season !== null ||
+            $this->team !== null ||
+            $this->h2h !== null
+        ) {
+
+            $this->data = $this->getGames();
+        }
     }
 
     /**
      * Get all games
-     * @param string $id
-     * @param string $date
-     * @param string $live
-     * @param string $league
-     * @param int $season
-     * @param string $team
-     * @param string $h2h
      * @return array|bool
      * @throws \Exception
      */
-    public function getGames($id = null, $date = null, $live = null, $league = null, $season = null, $team = null, $h2h = null)
+    public function getGames()
     {
         $queries = [
-            'id' => $id,
-            'date' => $date,
-            'live' => $live,
-            'league' => $league,
-            'season' => $season,
-            'team' => $team,
-            'h2h' => $h2h
+            'id' => $this->id,
+            'date' => $this->date,
+            'live' => $this->live,
+            'league' => $this->league,
+            'season' => $this->season,
+            'team' => $this->team,
+            'h2h' => $this->h2h
         ];
 
         foreach ($queries as $key => $value) {
@@ -125,22 +155,6 @@ class Games
             return $this->data;
         }
         return false;
-    }
-
-    /**
-     * Get a game by season
-     * @param int $season
-     * @return array|bool
-     * @throws \Exception
-     */
-    public function getGamesBySeason($season)
-    {
-        return $this->getGames(null, null, null, null, $season, null, null);
-    }
-
-    public function getGamesByDate($date)
-    {
-        return $this->getGames(null, $date, null, null, null, null, null);
     }
 
     /**
