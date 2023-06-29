@@ -9,7 +9,32 @@ require_once __DIR__ . "/../../controller/gamesApi.php";
 
 use Api\Games\Games;
 
+$queries_keys = [
+    'id',
+    'date',
+    'live',
+    'league',
+    'season',
+    'team',
+    'h2h'
+];
+
 $games = new Games();
+
+$emptyQuery = true;
+
+foreach ($queries_keys as $key) {
+    if (isset($_GET[$key])) {
+        $emptyQuery = false;
+        $games->$key = $_GET[$key];
+    }
+}
+
+if ($emptyQuery) {
+    $games->season = date("Y", strtotime("-1 year"));
+}
+
+$games->getGames();
 
 header('Content-Type: application/json; charset=utf-8');
 
