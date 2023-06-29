@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Joel Achankeng - Design In DC Test</title>
 
-
     <link rel="stylesheet" type="text/css" href="./dist/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -26,9 +26,13 @@
 
             <div class="p-5 mb-4 bg-body-tertiary rounded-3">
                 <div class="container-fluid py-5">
-                    <h1 class="display-5 fw-bold">All Teams</h1>
+                    <h1 class="display-5 fw-bold" id="page-title">
+                        All Games of <?php echo date("Y", strtotime("-1 year")); ?>
+                    </h1>
+                    <button type="button" id="view-all-btn" class="btn btn-success d-none">View All Games</button>
+
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover mt-4">
+                        <table class="table table-striped table-bordered table-hover mt-4" id="games-table">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -40,34 +44,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
+                                <tr id="loading-row">
+                                    <th scope="row" colspan="6">
+                                        <div class="d-flex flex-column gap-3 align-items-center gap justify-content-center p-5 cursor-pointer">
+                                            <div class="spinner-border" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                            <p>Loading results... Please wait</p>
+                                        </div>
+                                    </th>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <nav aria-label="Teams pagination navigation">
+                    <nav class="d-none" aria-label="Teams pagination navigation" id="pagination">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item "><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -76,6 +67,20 @@
             <footer class="pt-3 mt-4 text-body-secondary border-top">
                 Joel Achankeng © <?php echo date("Y"); ?>
             </footer>
+        </div>
+        <div class="modal fade" id="modal-error" tabindex="-1" role="dialog" aria-labelledby="modal-error-Title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-error-Title">Error</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>There was issue loading the data. Please try again later.</p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <script src="./dist/js/scripts.js"></script>
